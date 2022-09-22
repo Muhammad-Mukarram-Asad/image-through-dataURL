@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLX ADD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 30px;
+            background-color: lightgrey;
+        }
+
+        #container h1 {
+            color: black;
+            text-decoration: underline;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin: 10px;
+        }
+
+        #container h2 {
+            color: blue;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        #ad_btn {
+            width: 250px;
+            height: 30px;
+            font-size: 22px;
+            text-align: center;
+            color: black;
+            background-color: white;
+            cursor: pointer;
+            border: 2px solid black;
+            margin-top: 20px;
+        }
+
+        #ad_btn:hover {
+            color: blue;
+            background-color: whitesmoke;
+            cursor: pointer;
+            border: 2px solid blue;
+            font-size: 25px;
+        }
+
+        #box {
+            width: 100%;
+            height: 100vh;
+            background-color: darkgray;
+        }
+
+        #box h2 {
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        #box form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        form label {
+            color: blue;
+            font-size: 25px;
+        }
+
+        form input {
+            width: 400px;
+            height: 40px;
+            border: 2px solid grey;
+            text-indent: 10px;
+            font-size: 23px;
+            margin: 10px;
+        }
+
+        #form_btn,
+        #product_ad {
+            width: 350px;
+            height: 40px;
+            color: white;
+            background-color: black;
+            display: block;
+            margin: 5px auto;
+            font-size: 25px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        #Boxes {
+            width: 100vw;
+            height: 150vh;
+            border: 2px solid orangered;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .boxes_container {
+            width: 100%;
+            height: 84%;
+            border: 2px solid grey;
+            margin: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: flex-start;
+        }
+
+        #Boxes h2 {
+            color: blueviolet;
+            text-decoration: underline;
+            margin: 20px;
+            /* margin-left: 50%; */
+            text-align: center;
+        }
+
+
+        #ad_innerbox {
+            width: 405px;
+            height: 506px;
+            border: 2px solid black;
+            /* padding: 10px; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+
+        #ad_innerbox input {
+            width: 400px;
+            height: 40px;
+            font-size: 25px;
+        }
+
+        #ad_innerbox p {
+            font-size: 30px;
+            color: brwon;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #demoShowB {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+        }
+
+        #ad_box_des {
+            font-size: 25px;
+            color: black;
+        }
+
+        #ad_box_country {
+            font-size: 23px;
+            color: blue;
+        }
+
+        #ad_box_price {
+            font-size: 26px;
+            color: green;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1> Welcome to OLX</h1>
+        <h2> Adding your own Ads easily.</h2>
+        <button id="ad_btn" onclick="adding_Ad()">Click Here </button>
+    </div>
+
+    <div id="box" style="display: none;">
+        <h2> Add these following requirements for adding an Ad</h2>
+        <form>
+            <!-- <label> Enter the image of the product:</label>
+            <input type="file" id="img_file" placeholder="Enter your file"> -->
+            <input id="description" type="text" placeholder="Enter Description">
+            <input id="country" type="text" placeholder="Enter Country or City">
+            <input id="price" type="number" placeholder="Enter Price of your product">
+        </form>
+        <button id="form_btn"> Want to show Ad</button>
+
+    </div>
+
+    <div id="Boxes" style="display: none;">
+        <h2>Example of giving an Ad</h2>
+        <div class="boxes_container">
+            <div id="ad_innerbox">
+                <img src="web developer image.jpg" width="400px" height="400px" />
+                <p>Laptop</p>
+                <p>Pakistan, Karachi</p>
+                <p>120000</p>
+            </div>
+
+            <div id="ad_innerbox">
+                <input type="file" value="Choose Image File" id="demoPickB" accept="image/*" onchange="readFileB()" />
+                <img id="demoShowB" />
+                <p id="ad_box_des"></p>
+                <p id="ad_box_country"></p>
+                <p id="ad_box_price"></p>
+            </div>
+        </div>
+
+        <button id="product_ad" onclick="product_Ad()">Want to add a product ad?</button>
+        <button id="product_ad" onclick="returnForm()">Want to add another ad?</button>
+    </div>
+
+    <script>
+        function adding_Ad() {
+            var box = document.getElementById('box');
+            var container = document.getElementById('container');
+            box.style.display = "block";
+            container.style.display = "none";
+        }
+
+        var formBtn = document.getElementById('form_btn');
+        formBtn.addEventListener('click', function () {
+            var box = document.getElementById('box');
+            var addBox = document.getElementById('Boxes');
+            var container = document.getElementById('container');
+            addBox.style.display = "block";
+            container.style.display = "none";
+            box.style.display = "none";
+
+        })
+
+        // constructor function
+        function user_inputs(img, des, country, price) {
+            this.img = img,
+                this.des = des,
+                this.country = country,
+                this.price = price
+        }
+
+        var image_input = document.getElementById('img_file');
+        var description_input = document.getElementById('description');
+        var country_input = document.getElementById('country');
+        var price_input = document.getElementById('price');
+
+
+        function product_Ad() {
+            // var prod_img = document.getElementById('img');
+            var prod_des = document.getElementById('ad_box_des');
+            var prod_country = document.getElementById('ad_box_country');
+            var prod_price = document.getElementById('ad_box_price');
+
+            // prod_img.src = old_source;
+            prod_des.innerHTML = description_input.value;
+            prod_country.innerHTML = country_input.value;
+            prod_price.innerHTML = price_input.value;
+
+            // var boxContainer = document.getElementsByClassName('boxes_container');
+            // `
+            // <div ${id="ad_innerbox"}>
+            //     <input type="file" value="Choose Image File" id="demoPickB"} accept="image/*" ${onchange="readFileB()"} />
+            //     <img ${id="demoShowB"} />
+            //     <p ${id="ad_box_des"}> 
+            //         ${description_input.value}
+            //     </p>
+
+            //     <p ${id="ad_box_country"}>
+            //          ${country_input.value}
+            //     </p>
+
+            //     <p ${id="ad_box_price"}>
+            //         ${price_input.value}            
+            //     </p>
+            // </div>
+            
+            // `
+
+        }
+
+        function returnForm()
+        {
+            var box = document.getElementById('box');
+            var addBox = document.getElementById('Boxes');
+            var container = document.getElementById('container');
+            addBox.style.display = "none";
+            container.style.display = "none";
+            box.style.display = "block";
+        }
+        function readFileB() {
+            // (A) GET SELECTED FILE
+            let selected = document.getElementById("demoPickB").files[0];
+
+            // (B) READ SELECTED FILE
+            let reader = new FileReader();
+            reader.addEventListener("load", () => {
+                let imgTag = document.getElementById("demoShowB");
+                imgTag.src = reader.result;
+            });
+            reader.readAsDataURL(selected);
+        }
+
+    </script>
+
+</body>
+
+</html>
